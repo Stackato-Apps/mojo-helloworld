@@ -6,6 +6,12 @@ get '/' => sub { shift->render_text('Hello World!') };
 # Route associating the "/time" URL to template in DATA section
 get '/time' => 'clock';
 
+# Display all environment variables
+get '/env' => sub {
+    my $self = shift;
+    $self->render_text(join("<br>", map "$_=$ENV{$_}", sort keys %ENV));
+};
+
 # RESTful web service sending JSON responses
 get '/list/:offset' => sub {
   my $self = shift;
