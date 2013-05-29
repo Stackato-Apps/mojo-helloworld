@@ -1,7 +1,7 @@
 use Mojolicious::Lite;
 
 # Simple plain text response
-get '/' => sub { shift->render_text('Hello World!') };
+get '/' => sub { shift->render(text => 'Hello World!') };
 
 # Route associating the "/time" URL to template in DATA section
 get '/time' => 'clock';
@@ -9,21 +9,20 @@ get '/time' => 'clock';
 # Display all environment variables
 get '/env' => sub {
     my $self = shift;
-    $self->render_text(join("<br>", map "$_=$ENV{$_}", sort keys %ENV));
+    $self->render(text => join("<br>", map "$_=$ENV{$_}", sort keys %ENV));
 };
 
 # RESTful web service sending JSON responses
 get '/list/:offset' => sub {
   my $self = shift;
-  $self->render_json({list => [0 .. $self->param('offset')]});
+  $self->render(json => {list => [0 .. $self->param('offset')]});
 };
 
 # Scrape and return information from remote sites
 post '/title' => sub {
   my $self = shift;
   my $url  = $self->param('url') || 'http://mojolicio.us';
-  $self->render_text(
-    $self->ua->get($url)->res->dom->html->head->title->text);
+  $self->render(text => $self->ua->get($url)->res->dom->html->head->title->text);
 };
 
 # WebSocket echo service
