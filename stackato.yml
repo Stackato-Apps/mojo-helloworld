@@ -1,5 +1,4 @@
-# so that we can deploy with 'stackato push --no-prompt'
-name: mojo-hello
+name: mojo-helloworld
 
 framework:
   type: perl
