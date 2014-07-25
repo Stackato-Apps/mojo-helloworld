@@ -1,4 +1,3 @@
 name: mojo-helloworld
 
-framework:
-  type: perl
+buildpack: https://github.com/ActiveState/stackato-buildpack-perl.git
